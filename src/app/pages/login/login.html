@@ -1,0 +1,25 @@
+<!-- src/app/pages/login/login.component.html -->
+<div class="auth-wrapper">
+  <div class="auth-card">
+    <h2>Sign In</h2>
+    <p class="subtitle">Welcome back</p>
+
+    <div *ngIf="error" class="error-box">{{ error }}</div>
+
+    <form (ngSubmit)="onSubmit()">
+      <label>Email
+        <input type="email" [(ngModel)]="email" name="email" required placeholder="you@example.com" />
+      </label>
+
+      <label>Password
+        <input type="password" [(ngModel)]="password" name="password" required placeholder="••••••••" />
+      </label>
+
+      <button type="submit" [disabled]="loading">
+        {{ loading ? 'Signing in…' : 'Sign In' }}
+      </button>
+    </form>
+
+    <p class="switch-link">Don't have an account? <a routerLink="/register">Register</a></p>
+  </div>
+</div>

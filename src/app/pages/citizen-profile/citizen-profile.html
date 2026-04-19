@@ -1,0 +1,54 @@
+<div class="page citizen-profile-page">
+  <app-role-header role="CITIZEN"></app-role-header>
+
+  <section class="profile-content">
+    <h1>My Profile</h1>
+    <p>Update your citizen account details.</p>
+
+    <div class="notice error" *ngIf="error">{{ error }}</div>
+    <div class="notice success" *ngIf="success">{{ success }}</div>
+
+    <div class="notice" *ngIf="loading">Loading profile...</div>
+
+    <form *ngIf="!loading" (ngSubmit)="onSubmit()" class="profile-form">
+      <label>
+        <span>First Name</span>
+        <input type="text" [(ngModel)]="form.firstName" name="firstName" required />
+      </label>
+
+      <label>
+        <span>Last Name</span>
+        <input type="text" [(ngModel)]="form.lastName" name="lastName" required />
+      </label>
+
+      <label>
+        <span>Email</span>
+        <input type="email" [(ngModel)]="form.email" name="email" required />
+      </label>
+
+      <label>
+        <span>Phone</span>
+        <input type="text" [(ngModel)]="form.phone" name="phone" required />
+      </label>
+
+      <label>
+        <span>Personal Code</span>
+        <input type="text" [(ngModel)]="form.personalCode" name="personalCode" required />
+      </label>
+
+      <label>
+        <span>Address</span>
+        <input type="text" [(ngModel)]="form.address" name="address" required />
+      </label>
+
+      <label>
+        <span>New Password (optional)</span>
+        <input type="password" [(ngModel)]="form.password" name="password" minlength="8" />
+      </label>
+
+      <button class="save-btn" type="submit" [disabled]="saving">
+        {{ saving ? 'Saving...' : 'Save Changes' }}
+      </button>
+    </form>
+  </section>
+</div>

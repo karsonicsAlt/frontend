@@ -1,0 +1,53 @@
+/* src/app/pages/login/login.component.css */
+.auth-wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f5f6fa;
+}
+.auth-card {
+  background: white;
+  padding: 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 24px rgba(0,0,0,.08);
+  width: 100%;
+  max-width: 400px;
+}
+h2 { margin: 0 0 .25rem; font-size: 1.75rem; }
+.subtitle { color: #666; margin-bottom: 1.5rem; }
+form { display: flex; flex-direction: column; gap: 1rem; }
+label { display: flex; flex-direction: column; gap: .35rem; font-weight: 500; font-size: .9rem; }
+input {
+  padding: .65rem .85rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color .2s;
+}
+input:focus { outline: none; border-color: #6c63ff; }
+button {
+  margin-top: .5rem;
+  padding: .75rem;
+  background: #6c63ff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background .2s;
+}
+button:hover:not(:disabled) { background: #574fd6; }
+button:disabled { opacity: .6; cursor: default; }
+.error-box {
+  background: #fff0f0;
+  color: #c0392b;
+  border: 1px solid #f5c6cb;
+  padding: .65rem 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  font-size: .9rem;
+}
+.switch-link { text-align: center; margin-top: 1.25rem; font-size: .9rem; color: #555; }
+.switch-link a { color: #6c63ff; text-decoration: none; font-weight: 600; }

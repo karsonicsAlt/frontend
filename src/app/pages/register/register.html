@@ -1,0 +1,46 @@
+<!-- src/app/pages/register/register.component.html -->
+<div class="auth-wrapper">
+  <div class="auth-card">
+    <h2>Create Account</h2>
+    <p class="subtitle">Register as a citizen</p>
+
+    <div *ngIf="error" class="error-box">{{ error }}</div>
+
+    <form (ngSubmit)="onSubmit()">
+      <div class="row">
+        <label>First Name
+          <input [(ngModel)]="form.firstName" name="firstName" required placeholder="John" />
+        </label>
+        <label>Last Name
+          <input [(ngModel)]="form.lastName" name="lastName" required placeholder="Doe" />
+        </label>
+      </div>
+
+      <label>Email
+        <input type="email" [(ngModel)]="form.email" name="email" required placeholder="you@example.com" />
+      </label>
+
+      <label>Password
+        <input type="password" [(ngModel)]="form.password" name="password" required placeholder="Min 8 characters" />
+      </label>
+
+      <label>Phone
+        <input [(ngModel)]="form.phone" name="phone" required placeholder="+37112345678" />
+      </label>
+
+      <label>Personal Code
+        <input [(ngModel)]="form.personalCode" name="personalCode" required placeholder="11 digits" maxlength="11" />
+      </label>
+
+      <label>Address
+        <input [(ngModel)]="form.address" name="address" placeholder="123 Main St" />
+      </label>
+
+      <button type="submit" [disabled]="loading">
+        {{ loading ? 'Creating account…' : 'Register' }}
+      </button>
+    </form>
+
+    <p class="switch-link">Already have an account? <a routerLink="/login">Sign in</a></p>
+  </div>
+</div>
