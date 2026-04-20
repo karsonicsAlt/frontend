@@ -1,0 +1,136 @@
+<!-- src/app/pages/user-profile/user-profile.html -->
+<div class="page profile-page">
+  <app-role-header [role]="role"></app-role-header>
+
+  <section class="profile-wrap">
+    <div class="profile-header">
+      <div class="role-badge" [class]="'badge-' + role.toLowerCase()">{{ roleLabel }}</div>
+      <h1>My Profile</h1>
+      <p>Update your account details below.</p>
+    </div>
+
+    <div class="notice error" *ngIf="error">{{ error }}</div>
+    <div class="notice success" *ngIf="success">{{ success }}</div>
+    <div class="notice loading-notice" *ngIf="loading">
+      <span class="spin"></span> Loading profile…
+    </div>
+
+    <form *ngIf="!loading" (ngSubmit)="onSubmit()" class="profile-form">
+
+      <!-- ── Shared: name + contact ── -->
+      <fieldset>
+        <legend>Personal Information</legend>
+
+        <div class="row">
+          <label>
+            <span>First Name</span>
+            <input type="text" [(ngModel)]="form.firstName" name="firstName" required />
+          </label>
+          <label>
+            <span>Last Name</span>
+            <input type="text" [(ngModel)]="form.lastName" name="lastName" required />
+          </label>
+        </div>
+
+        <label>
+          <span>Email</span>
+          <input type="email" [(ngModel)]="form.email" name="email" required />
+        </label>
+
+        <label>
+          <span>Phone</span>
+          <input type="text" [(ngModel)]="form.phone" name="phone" required />
+        </label>
+      </fieldset>
+
+      <!-- ── CITIZEN-ONLY fields ── -->
+      <fieldset *ngIf="isCitizen">
+        <legend>Citizen Details</legend>
+
+        <label>
+          <span>Personal Code</span>
+          <input type="text" [(ngModel)]="form.personalCode" name="personalCode"
+                 required maxlength="11" placeholder="11 digits" />
+        </label>
+
+        <label>
+          <span>Address</span>
+          <input type="text" [(ngModel)]="form.address" name="address" required />
+        </label>
+      </fieldset>
+
+      <!-- ── SPECIALIST-ONLY fields ── -->
+      <fieldset *ngIf="isSpecialist">
+        <legend>Specialist Details</legend>
+
+        <div class="row">
+          <label>
+            <span>Job Title</span>
+            <input type="text" [(ngModel)]="form.jobTitle" name="jobTitle" required />
+          </label>
+          <label>
+            <span>Department</span>
+            <input type="text" [(ngModel)]="form.department" name="department" required />
+          </label>
+        </div>
+
+        <label>
+          <span>Description</span>
+          <input type="text" [(ngModel)]="form.description" name="description" />
+        </label>
+
+        <div class="row">
+          <label>
+            <span>Office Number</span>
+            <input type="text" [(ngModel)]="form.officeNumber" name="officeNumber" />
+          </label>
+          <label>
+            <span>Appointment Duration (min)</span>
+            <input type="number" [(ngModel)]="form.appointmentDurationMinutes"
+                   name="appointmentDurationMinutes" min="5" max="120" />
+          </label>
+        </div>
+
+        <div class="row">
+          <label>
+            <span>Work Start</span>
+            <input type="time" [(ngModel)]="form.workStartTime" name="workStartTime" required />
+          </label>
+          <label>
+            <span>Work End</span>
+            <input type="time" [(ngModel)]="form.workEndTime" name="workEndTime" required />
+          </label>
+        </div>
+      </fieldset>
+
+      <!-- ── ADMIN info note ── -->
+      <div class="info-note" *ngIf="isAdmin">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+             stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/>
+          <line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+        Admin accounts have restricted self-edit options. Contact a Super Admin for role changes.
+      </div>
+
+      <!-- ── Password (all roles) ── -->
+      <fieldset>
+        <legend>Change Password <span class="optional">(optional)</span></legend>
+        <label>
+          <span>New Password</span>
+          <input type="password" [(ngModel)]="form.password" name="password" minlength="8"
+                 placeholder="Leave blank to keep current password" />
+        </label>
+      </fieldset>
+
+      <button class="save-btn" type="submit" [disabled]="saving">
+        <span *ngIf="!saving">Save Changes</span>
+        <span *ngIf="saving" class="btn-saving">
+          <span class="spin"></span> Saving…
+        </span>
+      </button>
+
+    </form>
+  </section>
+</div>

@@ -1,0 +1,224 @@
+/* src/app/pages/user-profile/user-profile.css */
+.profile-page {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #f4f6fb 0%, #eef2f9 100%);
+}
+
+.profile-wrap {
+  margin: 28px auto 40px;
+  padding: 0 20px;
+  max-width: 720px;
+}
+
+/* ── Header ── */
+.profile-header {
+  margin-bottom: 20px;
+}
+
+.profile-header h1 {
+  margin: 8px 0 4px;
+  font-size: 1.6rem;
+  color: #111827;
+}
+
+.profile-header p {
+  margin: 0;
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+/* Role badge */
+.role-badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.badge-citizen    { background: #dbeafe; color: #1e40af; }
+.badge-specialist { background: #d1fae5; color: #065f46; }
+.badge-admin      { background: #fef3c7; color: #92400e; }
+.badge-super_admin{ background: #ede9fe; color: #4c1d95; }
+
+/* ── Notices ── */
+.notice {
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  margin-bottom: 14px;
+  border: 1px solid #d6dce9;
+  background: #f8faff;
+  color: #1f2937;
+}
+
+.notice.error   { border-color: #f0b4b4; background: #fff3f3; color: #8a1f1f; }
+.notice.success { border-color: #b7e3c3; background: #effcf3; color: #1f6a38; }
+
+.loading-notice {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #374151;
+}
+
+/* ── Form ── */
+.profile-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+fieldset {
+  border: 1px solid #d7dcea;
+  border-radius: 10px;
+  background: #ffffff;
+  padding: 18px 20px 20px;
+  margin: 0;
+}
+
+legend {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #6b7280;
+  padding: 0 6px;
+}
+
+.optional {
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+  color: #9ca3af;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-top: 12px;
+}
+
+label:first-of-type {
+  margin-top: 0;
+}
+
+.row label {
+  margin-top: 0;
+}
+
+fieldset .row + label,
+fieldset label + label {
+  margin-top: 12px;
+}
+
+label span {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #374151;
+}
+
+input {
+  padding: 9px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  color: #111827;
+  background: #fafafa;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+input:focus {
+  outline: none;
+  border-color: #6c8ff0;
+  box-shadow: 0 0 0 3px rgba(108, 143, 240, 0.15);
+  background: #fff;
+}
+
+/* ── Admin info note ── */
+.info-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 12px 14px;
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  color: #78350f;
+  line-height: 1.5;
+}
+
+.info-note svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: #d97706;
+}
+
+/* ── Save button ── */
+.save-btn {
+  align-self: flex-start;
+  padding: 10px 28px;
+  background: #4f6ef7;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+  min-width: 140px;
+}
+
+.save-btn:hover:not(:disabled) {
+  background: #3b57e0;
+  transform: translateY(-1px);
+}
+
+.save-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.btn-saving {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: center;
+}
+
+/* ── Spinner ── */
+.spin {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255,255,255,0.4);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+.loading-notice .spin {
+  border-color: rgba(55,65,81,0.2);
+  border-top-color: #374151;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── Responsive ── */
+@media (max-width: 600px) {
+  .profile-wrap { padding: 0 12px; margin-top: 16px; }
+  .row { grid-template-columns: 1fr; }
+  fieldset { padding: 14px 14px 16px; }
+}

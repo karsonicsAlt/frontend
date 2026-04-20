@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {
   AuthService,
@@ -17,6 +17,7 @@ import { finalize, timeout } from 'rxjs';
 })
 export class CitizenProfileComponent implements OnInit {
   private readonly authService = inject(AuthService);
+  private readonly cdr = inject(ChangeDetectorRef);
 
   loading = true;
   saving = false;
@@ -34,7 +35,7 @@ export class CitizenProfileComponent implements OnInit {
   };
 
   ngOnInit(): void {
-    setTimeout(() => this.loadProfile(), 100);
+    this.loadProfile();
   }
 
   private loadProfile(): void {
@@ -45,6 +46,7 @@ export class CitizenProfileComponent implements OnInit {
       timeout(10000),
       finalize(() => {
         this.loading = false;
+        this.cdr.detectChanges();
       })
     ).subscribe({
       next: (profile) => {
@@ -55,9 +57,11 @@ export class CitizenProfileComponent implements OnInit {
         this.form.personalCode = profile.personalCode;
         this.form.address = profile.address;
         this.form.password = '';
+        this.cdr.detectChanges();
       },
       error: (err) => {
         this.error = err.error?.message ?? 'Failed to load your profile.';
+        this.cdr.detectChanges();
       }
     });
   }
@@ -77,15 +81,20 @@ export class CitizenProfileComponent implements OnInit {
       password: this.form.password.trim() ? this.form.password : undefined
     };
 
-    this.authService.updateMyCitizenProfile(payload).subscribe({
+    this.authService.updateMyCitizenProfile(payload).pipe(
+      finalize(() => {
+        this.saving = false;
+        this.cdr.detectChanges();
+      })
+    ).subscribe({
       next: () => {
         this.success = 'Profile updated successfully.';
         this.form.password = '';
-        this.saving = false;
+        this.cdr.detectChanges();
       },
       error: (err) => {
         this.error = err.error?.message ?? 'Failed to update profile.';
-        this.saving = false;
+        this.cdr.detectChanges();
       }
     });
   }

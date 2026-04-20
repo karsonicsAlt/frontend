@@ -4,6 +4,7 @@ import { authGuard, roleGuard } from './guards/auth-guard';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
+
   {
     path: 'login',
     loadComponent: () => import('./pages/login/login').then(m => m.LoginComponent)
@@ -12,15 +13,12 @@ export const routes: Routes = [
     path: 'register',
     loadComponent: () => import('./pages/register/register').then(m => m.RegisterComponent)
   },
+
+  // ── Dashboards ──
   {
     path: 'dashboard',
     canActivate: [authGuard],
     loadComponent: () => import('./pages/dashboard/dashboard').then(m => m.DashboardComponent)
-  },
-  {
-    path: 'citizen/profile',
-    canActivate: [roleGuard('CITIZEN')],
-    loadComponent: () => import('./pages/citizen-profile/citizen-profile').then(m => m.CitizenProfileComponent)
   },
   {
     path: 'admin/dashboard',
@@ -32,5 +30,20 @@ export const routes: Routes = [
     canActivate: [authGuard],
     loadComponent: () => import('./pages/specialist-dashboard/specialist-dashboard').then(m => m.SpecialistDashboardComponent)
   },
+
+  // ── Unified profile (all logged-in roles) ──
+  {
+    path: 'profile',
+    canActivate: [authGuard],
+    loadComponent: () => import('./pages/user-profile/user-profile').then(m => m.UserProfileComponent)
+  },
+
+  // Keep old citizen/profile path as an alias so existing links don't break
+  {
+    path: 'citizen/profile',
+    canActivate: [authGuard],
+    loadComponent: () => import('./pages/user-profile/user-profile').then(m => m.UserProfileComponent)
+  },
+
   { path: '**', redirectTo: 'login' }
 ];
